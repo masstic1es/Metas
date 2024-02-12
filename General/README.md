@@ -1,6 +1,6 @@
 # Infinite Leaftide General Meta
 
-This meta provides both simple UIs and task automation specific to infinite leaftide content
+This meta provides both simple UIs and task automation specific to infinite leaftide content. It requires [utilitybelt](https://utilitybelt.gitlab.io/) and vtank expression patching: `/ub opt set VTank.PatchExpressionEngine true`
 
 UIs:
 
