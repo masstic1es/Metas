@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+    <view width="240" height="328" title="Attributes">
+        <control type="layout">
+            <control type="button" name="Strength" left="4" top="4" width="128" height="32" text="Strength :" />
+            <control type="button" name="Str1" left="136" top="4" width="32" height="32" text="+1"  actionexpr="chatbox[\/attr str 1]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Strength], Strength \\\: +tostring[getcharattribute_base[1]]]`]" />
+            <control type="button" name="Str1?" left="168" top="4" width="16" height="32" text="?" actionexpr="chatbox[\/xp str 1]" />
+            <control type="button" name="Str10" left="188" top="4" width="32" height="32" text="+10"  actionexpr="chatbox[\/attr str 10]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Strength], Strength \\\: +tostring[getcharattribute_base[1]]]`]" />
+            <control type="button" name="Str10?" left="220" top="4" width="16" height="32" text="?" actionexpr="chatbox[\/xp str 10]" />
+            <control type="button" name="Endurance" left="4" top="40" width="128" height="32" text="Endurance :" />
+            <control type="button" name="End1" left="136" top="40" width="32" height="32" text="+1"  actionexpr="chatbox[\/attr end 1]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Endurance], Endurance \\\: +tostring[getcharattribute_base[2]]]`]" />
+            <control type="button" name="End1?" left="168" top="40" width="16" height="32" text="?" actionexpr="chatbox[\/xp end 1]" />
+            <control type="button" name="End10" left="188" top="40" width="32" height="32" text="+10"  actionexpr="chatbox[\/attr end 10]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Endurance], Endurance \\\: +tostring[getcharattribute_base[2]]]`]" />
+            <control type="button" name="End10?" left="220" top="40" width="16" height="32" text="?" actionexpr="chatbox[\/xp end 10]" />
+            <control type="button" name="Coordination" left="4" top="76" width="128" height="32" text="Coordination :" />
+            <control type="button" name="Coo1" left="136" top="76" width="32" height="32" text="+1"  actionexpr="chatbox[\/attr coo 1]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Coordination], Coordination \\\: +tostring[getcharattribute_base[4]]]`]" />
+            <control type="button" name="Coo1?" left="168" top="76" width="16" height="32" text="?" actionexpr="chatbox[\/xp coo 1]" />
+            <control type="button" name="Coo10" left="188" top="76" width="32" height="32" text="+10"  actionexpr="chatbox[\/attr coo 10]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Coordination], Coordination \\\: +tostring[getcharattribute_base[4]]]`]" />
+            <control type="button" name="Coo10?" left="220" top="76" width="16" height="32" text="?" actionexpr="chatbox[\/xp coo 10]" />
+            <control type="button" name="Quickness" left="4" top="112" width="128" height="32" text="Quickness :" />
+            <control type="button" name="Qui1" left="136" top="112" width="32" height="32" text="+1"  actionexpr="chatbox[\/attr qui 1]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Quickness], Quickness \\\: +tostring[getcharattribute_base[3]]]`]" />
+            <control type="button" name="Qui1?" left="168" top="112" width="16" height="32" text="?" actionexpr="chatbox[\/xp qui 1]" />
+            <control type="button" name="Qui10" left="188" top="112" width="32" height="32" text="+10"  actionexpr="chatbox[\/attr qui 10]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Quickness], Quickness \\\: +tostring[getcharattribute_base[3]]]`]" />
+            <control type="button" name="Qui10?" left="220" top="112" width="16" height="32" text="?" actionexpr="chatbox[\/xp qui 10]" />
+            <control type="button" name="Focus" left="4" top="148" width="128" height="32" text="Focus :" />
+            <control type="button" name="Foc1" left="136" top="148" width="32" height="32" text="+1"  actionexpr="chatbox[\/attr foc 1]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Focus], Focus \\\: +tostring[getcharattribute_base[5]]]`]" />
+            <control type="button" name="Foc1?" left="168" top="148" width="16" height="32" text="?" actionexpr="chatbox[\/xp foc 1]" />
+            <control type="button" name="Foc10" left="188" top="148" width="32" height="32" text="+10"  actionexpr="chatbox[\/attr foc 10]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Focus], Focus \\\: +tostring[getcharattribute_base[5]]]`]" />
+            <control type="button" name="Foc10?" left="220" top="148" width="16" height="32" text="?" actionexpr="chatbox[\/xp foc 10]" />
+            <control type="button" name="Self" left="4" top="184" width="128" height="32" text="Self :" />
+            <control type="button" name="Sel1" left="136" top="184" width="32" height="32" text="+1"  actionexpr="chatbox[\/attr sel 1]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Self], Self \\\: +tostring[getcharattribute_base[6]]]`]" />
+            <control type="button" name="Sel1?" left="168" top="184" width="16" height="32" text="?" actionexpr="chatbox[\/xp sel 1]" />
+            <control type="button" name="Sel10" left="188" top="184" width="32" height="32" text="+10"  actionexpr="chatbox[\/attr sel 10]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Self], Self \\\: +tostring[getcharattribute_base[6]]]`]" />
+            <control type="button" name="Sel10?" left="220" top="184" width="16" height="32" text="?" actionexpr="chatbox[\/xp sel 10]" />
+            <control type="button" name="Health" left="4" top="220" width="128" height="32" text="Health :" />
+            <control type="button" name="Hea1" left="136" top="220" width="32" height="32" text="+1"  actionexpr="chatbox[\/attr hea 1]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Health], Health \\\: +tostring[getcharvital_base[1]]]`]" />
+            <control type="button" name="Hea1?" left="168" top="220" width="16" height="32" text="?" actionexpr="chatbox[\/xp hea 1]" />
+            <control type="button" name="Hea10" left="188" top="220" width="32" height="32" text="+10"  actionexpr="chatbox[\/attr hea 10]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Health], Health \\\: +tostring[getcharvital_base[1]]]`]" />
+            <control type="button" name="Hea10?" left="220" top="220" width="16" height="32" text="?" actionexpr="chatbox[\/xp hea 10]" />
+            <control type="button" name="Stamina" left="4" top="256" width="128" height="32" text="Stamina :" />
+            <control type="button" name="Sta1" left="136" top="256" width="32" height="32" text="+1"  actionexpr="chatbox[\/attr sta 1]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Stamina], Stamina \\\: +tostring[getcharvital_base[2]]]`]" />
+            <control type="button" name="Sta1?" left="168" top="256" width="16" height="32" text="?" actionexpr="chatbox[\/xp sta 1]" />
+            <control type="button" name="Sta10" left="188" top="256" width="32" height="32" text="+10"  actionexpr="chatbox[\/attr sta 10]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Stamina], Stamina \\\: +tostring[getcharvital_base[2]]]`]" />
+            <control type="button" name="Sta10?" left="220" top="256" width="16" height="32" text="?" actionexpr="chatbox[\/xp sta 10]" />
+            <control type="button" name="Mana" left="4" top="292" width="128" height="32" text="Mana :" />
+            <control type="button" name="Man1" left="136" top="292" width="32" height="32" text="+1"  actionexpr="chatbox[\/attr man 1]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Mana], Mana \\\: +tostring[getcharvital_base[3]]]`]" />
+            <control type="button" name="Man1?" left="168" top="292" width="16" height="32" text="?" actionexpr="chatbox[\/xp man 1]" />
+            <control type="button" name="Man10" left="188" top="292" width="32" height="32" text="+10"  actionexpr="chatbox[\/attr man 10]&amp;&amp;chatbox[`/ub delay 500 /ub mexec uisetlabel[uigetcontrol[Attributes, Mana], Mana \\\: +tostring[getcharvital_base[3]]]`]" />
+            <control type="button" name="Man10?" left="220" top="292" width="16" height="32" text="?" actionexpr="chatbox[\/xp man 10]" />
+        </control>
+    </view>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+    <view width="148" height="40" title="Main">
+        <control type="layout">
+            <control type="button" name="Attributes" left="4" top="4" width="32" height="32" text="Attr" setstate="viewAttr" actionexpr="$viewAttr=1-$viewAttr" />
+            <control type="button" name="Bank" left="40" top="4" width="32" height="32" text="Bank" setstate="viewBank" actionexpr="$viewBank=1-$viewBank" />
+            <control type="button" name="WIP" left="76" top="4" width="32" height="32" text="WIP" />
+            <control type="button" name="WIP" left="112" top="4" width="32" height="32" text="WIP" />
+        </control>
+    </view>

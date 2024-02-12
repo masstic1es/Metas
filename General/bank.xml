@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+    <view width="136" height="184" title="Bank">
+        <control type="layout">
+            <control type="button" name="Pyreals" left="4" top="4" width="128" height="32" text="Pyreals :" />
+            <control type="button" name="Luminance" left="4" top="40" width="128" height="32" text="Lum :" />
+            <control type="button" name="Keys" left="4" top="76" width="128" height="32" text="Keys :" />
+            <control type="button" name="EnlCoins" left="4" top="112" width="128" height="32" text="Enl Coins :" />
+            <control type="button" name="BankDep" left="4" top="148" width="40" height="32" text="/b d" actionexpr="chatbox[\/b d]&amp;&amp;chatbox[`/ub delay 500 /b`]" />
+            <control type="button" name="BankDepN" left="48" top="148" width="40" height="32" text="/b d n" actionexpr="chatbox[\/b d n]&amp;&amp;chatbox[`/ub delay 500 /b`]" />
+            <control type="button" name="WIP" left="92" top="148" width="40" height="32" text="WIP" />
+        </control>
+    </view>
