@@ -1,6 +1,8 @@
 # Infinite Leaftide General Meta
 
-This meta provides both simple UIs and task automation specific to infinite leaftide content. It requires [utilitybelt](https://utilitybelt.gitlab.io/) and vtank expression patching: `/ub opt set VTank.PatchExpressionEngine true`
+This meta provides both simple UIs and task automation specific to infinite leaftide content. It requires [utilitybelt](https://utilitybelt.gitlab.io/) and vtank expression patching: `/ub opt set VTank.PatchExpressionEngine true`.
+
+do **NOT** edit in MIMB, you will break the meta, the strings for functions, as well as the xml for the UIs is too long. It will get cut off, the meta will break.
 
 UIs:
 
