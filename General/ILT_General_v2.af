@@ -48,6 +48,8 @@ STATE: {Default} ~~ {
 				DoExpr {setvar[coinRed, True]}
 				DoExpr {setvar[coinBlue, False]}
 				DoExpr {setvar[gambleLum, 5000]}
+				Chat {/ub opt set VTank.PatchExpressionEngine true}
+				SetOpt {IdlePeaceMode} {True}
 				SetState {Default}
 	IF:	All
 			Expr {getcombatstate[]==Peace}
