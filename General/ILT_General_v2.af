@@ -173,13 +173,14 @@ STATE: {Carve} ~~ {
 			ItemCountLE 0 {Intricate Carving Tool}
 		DO:	DoAll
 				SetOpt {EnableCombat} {True}
-				Chat {/b d}
+				Chat {/ub mexec chatbox[`/b d`]&&chatbox[`/ub delay 500 /b`]}
 				SetState {Default}
 ~~ }
 STATE: {Chunk} ~~ {
 	IF:	Any
 			ItemCountLE 0 {Coalesced Aetheria}
 		DO:	DoAll
+				Chat {/ub mexec chatbox[`/b d`]&&chatbox[`/ub delay 500 /b`]}
 				SetOpt {EnableCombat} {True}
 				SetState {Default}
 	IF:	All
@@ -241,6 +242,7 @@ STATE: {EnlightenCoin} ~~ {
 			ItemCountLE 0 {Red Aetheria Powder}
 			ItemCountLE 0 {Ancient Empyrean Trinket}
 		DO:	DoAll
+				Chat {/ub mexec chatbox[`/b d`]&&chatbox[`/ub delay 500 /b`]}
 				SetOpt {EnableCombat} {True}
 				SetState {Default}
 ~~ }
