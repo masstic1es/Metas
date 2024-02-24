@@ -158,6 +158,88 @@ STATE: {Default} ~~ {
 				DoExpr {uisetlabel[uigetcontrol[Bank, Keys], Keys \: +tostring[getvar[capturegroup_bankkeys]]]}
 				DoExpr {uisetlabel[uigetcontrol[Bank, EnlCoins], Enl Coins \: +tostring[getvar[capturegroup_bankcoins]]]}
 				SetState {Default}
+	IF: Any
+			Expr {ifthen[$viewAF,`uisetlabel[uigetcontrol[main, AFtoggle],\`\[ON\]\`]&&setvar[autoFellow, True]`,`uisetlabel[uigetcontrol[main, AFtoggle],\`\[OFF\]\`]&&setvar[autoFellow, False]`]}
+		DO: None
+	IF: All
+			Expr {getvar[autoFellow]==True}
+			Expr {getfellowshipstatus[]==1}
+			Expr {getvar[autoFellowTimer]!=0}
+			Expr {getvar[autoFellowTimer]+300<=getunixtime[]}
+			Any
+				BlockE 01050000 ~~ Ayan BSD
+				BlockE 01040000 ~~ WJ BSD
+				BlockE 01030000 ~~ Teth BSD
+				BlockE 002D0000 ~~ Dark Design
+				BlockE 02F00000 ~~ Hills Citadel
+				BlockE 02F10000 ~~ Ridge
+				BlockE 02F20000 ~~ Wilderness
+				BlockE 61480000 ~~ Desert
+				BlockE 61470000 ~~ Mountain
+				BlockE 002B0000 ~~ EO
+				BlockE 00640000 ~~ EO East
+				BlockE 00C80000 ~~ EO West
+				BlockE 01F70000 ~~ Shoushi Grotto
+				BlockE 00310000 ~~ Creepy Canyon
+				BlockE 01840000 ~~ Mei
+		DO: DoAll
+				Chat {/fship landblock}
+				DoExpr {setvar[autoFellowTimer, getunixtime[]]}
+				SetState {Default}
+	IF: All
+			Expr {getvar[autoFellow]==True}
+			Expr {getfellowshipstatus[]==0}
+			Any
+				BlockE 01050000 ~~ Ayan BSD
+				BlockE 01040000 ~~ WJ BSD
+				BlockE 01030000 ~~ Teth BSD
+				BlockE 002D0000 ~~ Dark Design
+				BlockE 02F00000 ~~ Hills Citadel
+				BlockE 02F10000 ~~ Ridge
+				BlockE 02F20000 ~~ Wilderness
+				BlockE 61480000 ~~ Desert
+				BlockE 61470000 ~~ Mountain
+				BlockE 002B0000 ~~ EO
+				BlockE 00640000 ~~ EO East
+				BlockE 00C80000 ~~ EO West
+				BlockE 01F70000 ~~ Shoushi Grotto
+				BlockE 00310000 ~~ Creepy Canyon
+				BlockE 01840000 ~~ Mei
+		DO: DoAll
+				SetState {AutoFellowManager}
+~~ }
+STATE: {AutoFellowManager} ~~ {
+	IF:	Expr {getfellowshipstatus[]==0}
+		DO: DoAll
+				Chat {/fship create Leaftidied}
+				SetState {AutoFellowCreate}
+	IF: Expr {getfellowshipstatus[]==1}
+		DO: DoAll
+				DoExpr {setvar[autoFellowTimer, getunixtime[]]}
+				Chat {/fship landblock}
+				SetState {Default}
+~~ }
+STATE: {AutoFellowCreate} ~~ {
+	IF: Always
+		DO: Chat {/fship landblock}
+	IF: ChatCapture {(?<fshipLandblock>[^\<]*) is already a member of a Fellowship} {}
+		DO: DoAll
+				Chat {/fship disband}
+				SetState {AutoFellowDisband}
+	IF:	SecsInStateGE 2
+		DO: SetState {AutoFellowManager}
+~~ }
+STATE: {AutoFellowDisband} ~~ {
+	IF:	Expr {getfellowshipstatus[]==0}
+		DO: ChatExpr {`/t `+$capturegroup_fshipLandblock+`, xp`}
+	IF: Expr {getfellowshipstatus[]==1}
+		DO: SetState {AutoFellowManager}
+	IF:	All
+			SecsInStateGE 2
+			Expr {getfellowshipstatus[]==0}
+		DO: DoAll
+				Chat {/fship create Leaftidied}
+				SetState {AutoFellowManager}
 ~~ }
 STATE: {Carve} ~~ {
 	IF:	All
@@ -210,7 +292,6 @@ STATE: {RedPowder} ~~ {
 		DO:	DoAll
 				SetOpt {EnableCombat} {True}
 				SetState {Default}
-~~ }
 STATE: {BluePowder} ~~ {
 	IF:	All
 			ItemCountGE 1 {Blue Aetheria Chunk}
@@ -227,6 +308,47 @@ STATE: {BluePowder} ~~ {
 		DO:	DoAll
 				SetOpt {EnableCombat} {True}
 				SetState {Default}
+~~ }
+STATE: {CombineWithOutHammer} ~~ {
+	IF:	All
+			Expr {getvar[combineWOHammer]==True}
+			Expr {getvar[powderRed]==True}
+			Expr {getcombatstate[]==Peace}
+			Expr {listcount[listfilter[wobjectfindallinventorybynamerx[`Coalesced Aetheria`],`wobjectgetintprop[$1,218103849]==27704`]]==0}
+			ItemCountGE 1 {Coalesced Aetheria}
+			ItemCountGE 1 {Aetheria Desiccant}
+			ItemCountGE 0 {Lugian Aetheria Hammer}
+			Expr {getinventorycountbytemplatetype[42636]!=0} ~~ Red Coalesced Aetheria
+			Any
+				SecsInStateGE 2
+				ChatMatch {^You use the desiccant on the aetheria to create an aetheria powder}
+		DO:	DoAll
+				DoExpr {actiontryapplyitem[wobjectfindininventorybyname[Aetheria Desiccant],wobjectfindininventorybytemplatetype[42636]]}
+				SetState {CombineWithOutHammer}
+	IF:	All
+			Expr {getvar[combineWOHammer]==True}
+			Expr {getvar[powderBlue]==True}
+			Expr {getcombatstate[]==Peace}
+			Expr {listcount[listfilter[wobjectfindallinventorybynamerx[`Coalesced Aetheria`],`wobjectgetintprop[$1,218103849]==27704`]]==0}
+			ItemCountGE 1 {Coalesced Aetheria}
+			ItemCountGE 1 {Aetheria Desiccant}
+			ItemCountGE 0 {Lugian Aetheria Hammer}
+			Expr {getinventorycountbytemplatetype[42636]==0}
+			Expr {getinventorycountbytemplatetype[42635]!=0} ~~ Blue Coalesced Aetheria
+			Any
+				SecsInStateGE 2
+				ChatMatch {^You use the desiccant on the aetheria to create an aetheria powder}
+		DO:	DoAll
+				DoExpr {actiontryapplyitem[wobjectfindininventorybyname[Aetheria Desiccant],wobjectfindininventorybytemplatetype[42635]]}
+				SetState {CombineWithOutHammer}
+	IF: Any
+			Expr {getvar[combineWOHammer]==False}
+			Expr {listcount[listfilter[wobjectfindallinventorybynamerx[`Coalesced Aetheria`],`wobjectgetintprop[$1,218103849]==27704`]]!=0}
+			All
+				Expr {getinventorycountbytemplatetype[42636]==0}
+				Expr {getinventorycountbytemplatetype[42635]==0}
+			ItemCountGE 1 {Lugian Aetheria Hammer}
+		DO: DoAll
 ~~ }
 STATE: {EnlightenCoin} ~~ {
 	IF:	All

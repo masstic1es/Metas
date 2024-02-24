@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ILT Aug & Enl Calc</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script>
+
+    // Mapping for different coin costs per type
+    const coinCosts = {
+      creature: 3,
+      item: 18,
+      life: 12,
+      war: 5,
+      void: 5,
+      duration: 5,
+      skillspec: 50,
+    };
+
+    // Function to perform calculations on the frontend
+    function calculateAndUpdate(rowId) {
+      const category = rowId.replace('row-', '').replace('-buff', '');
+      const startInput = document.getElementById(`start-${rowId}`);
+      const endInput = document.getElementById(`end-${rowId}`);
+
+      if (startInput.value && endInput.value) {
+        const start = parseInt(startInput.value);
+        const end = parseInt(endInput.value);
+        const count = end - start + 1; // Number of levels
+
+        if (!isNaN(start) && !isNaN(end) && start <= end) {
+          let lumSum = 0;
+          const coinCost = coinCosts[category] || 3; // Assume coinCosts mapping exists
+          let coinsSum = count * coinCost;
+
+          switch (category) {
+            case 'creature':
+              lumSum = calculateSum(start, end, 975000, -225000);
+              break;
+            case 'item':
+              lumSum = calculateSum(start, end, 1650000, -650000);
+              break;
+            case 'life':
+              lumSum = calculateSum(start, end, 1901250, -926250);
+              break;
+            case 'war':
+              lumSum = calculateSum(start, end, 1050000, -300000);
+              break;
+            case 'void':
+              lumSum = calculateSum(start, end, 1280000, -480000);
+              break;
+            case 'duration':
+              if (end <= 22) {
+                // If the entire range is within 1-22, use the initial formula
+                lumSum = calculateSum(start, end, 480000, -80000);
+              } else {
+                // Calculate part of the range with the initial formula up to level 22
+                if (start <= 22) {
+                  const formulaEnd = Math.min(end, 22); // Use formula up to level 22
+                  lumSum += calculateSum(start, formulaEnd, 480000, -80000);
+                }
+
+                // Calculate part of the range using the new formula starting from level 23
+                if (end >= 23) {
+                  const newFormulaStart = Math.max(start, 23); // Start from level 23 or the initial level, whichever is greater
+                  for (let n = newFormulaStart; n <= end; n++) {
+                    lumSum += 10730000 + 250000 * (n - 23); // Apply the corrected formula for each level
+                  }
+                }
+              }
+              break;
+            case 'skillspec':
+              lumSum = count * 3000000; // Flat rate for skillspec
+              break;
+            // Add cases for other categories as needed
+          }
+
+          document.getElementById(`lum-${rowId}`).value = lumSum.toLocaleString();
+          document.getElementById(`coins-${rowId}`).value = coinsSum.toLocaleString();
+        }
+      }
+    }
+
+    // Helper function to calculate the sum for a given range using the formula y = mx + b
+    function calculateSum(start, end, m, b) {
+      const a1 = m * start + b; // First term of the sequence
+      const an = m * end + b; // Last term of the sequence
+      const sum = ((end - start + 1) / 2) * (a1 + an); // Sum of the arithmetic sequence
+      return sum;
+    }
+
+    function calculateValues() {
+      const enl = parseInt(document.getElementById('enl-input').value);
+      const baseLevel = 275;
+
+      // Calculate Level
+      const level = baseLevel + enl - 1;
+      document.getElementById('level-output').value = level.toLocaleString();
+
+      // Calculate Tokens, starts at Enl 6
+      const tokens = enl >= 6 ? enl - 5 : 0;
+      document.getElementById('tokens-output').value = tokens.toLocaleString();
+
+      // Calculate Coins, 20 per token
+      const coins = tokens * 20;
+      document.getElementById('coins-output').value = coins.toLocaleString();
+
+      // Calculate Lum, starts at Enl 50
+      const lum = enl >= 50 ? enl * 100000000 : 0;
+      document.getElementById('lum-output').value = lum.toLocaleString();
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="container mt-3">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Aug</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Lum</th>
+          <th>Coins</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="row-creature-buff">
+          <td>Creature Buff</td>
+          <td>
+            <input type="number" id="start-creature-buff" onchange="calculateAndUpdate('creature-buff')" />
+          </td>
+          <td>
+            <input type="number" id="end-creature-buff" onchange="calculateAndUpdate('creature-buff')" />
+          </td>
+          <td><input type="text" id="lum-creature-buff" readonly /></td>
+          <td><input type="text" id="coins-creature-buff" readonly /></td>
+        </tr>
+        <!-- Repeat for other rows -->
+        <tr id="row-item-buff">
+          <td>Item Buff</td>
+          <td>
+            <input type="number" id="start-item-buff" onchange="calculateAndUpdate('item-buff')" />
+          </td>
+          <td>
+            <input type="number" id="end-item-buff" onchange="calculateAndUpdate('item-buff')" />
+          </td>
+          <td><input type="text" id="lum-item-buff" readonly /></td>
+          <td><input type="text" id="coins-item-buff" readonly /></td>
+        </tr>
+        <tr id="row-life-buff">
+          <td>Life Buff</td>
+          <td>
+            <input type="number" id="start-life-buff" onchange="calculateAndUpdate('life-buff')" />
+          </td>
+          <td>
+            <input type="number" id="end-life-buff" onchange="calculateAndUpdate('life-buff')" />
+          </td>
+          <td><input type="text" id="lum-life-buff" readonly /></td>
+          <td><input type="text" id="coins-life-buff" readonly /></td>
+        </tr>
+        <tr id="row-war-buff">
+          <td>War Buff</td>
+          <td>
+            <input type="number" id="start-war-buff" onchange="calculateAndUpdate('war-buff')" />
+          </td>
+          <td>
+            <input type="number" id="end-war-buff" onchange="calculateAndUpdate('war-buff')" />
+          </td>
+          <td><input type="text" id="lum-war-buff" readonly /></td>
+          <td><input type="text" id="coins-war-buff" readonly /></td>
+        </tr>
+        <tr id="row-void-buff">
+          <td>Void Buff</td>
+          <td>
+            <input type="number" id="start-void-buff" onchange="calculateAndUpdate('void-buff')" />
+          </td>
+          <td>
+            <input type="number" id="end-void-buff" onchange="calculateAndUpdate('void-buff')" />
+          </td>
+          <td><input type="text" id="lum-void-buff" readonly /></td>
+          <td><input type="text" id="coins-void-buff" readonly /></td>
+        </tr>
+        <tr id="row-duration-buff">
+          <td>Duration Buff</td>
+          <td>
+            <input type="number" id="start-duration-buff" onchange="calculateAndUpdate('duration-buff')" />
+          </td>
+          <td>
+            <input type="number" id="end-duration-buff" onchange="calculateAndUpdate('duration-buff')" />
+          </td>
+          <td><input type="text" id="lum-duration-buff" readonly /></td>
+          <td><input type="text" id="coins-duration-buff" readonly /></td>
+        </tr>
+        <tr id="row-skillspec-buff">
+          <td>Skill Specialization</td>
+          <td>
+            <input type="number" id="start-skillspec-buff" onchange="calculateAndUpdate('skillspec-buff')" />
+          </td>
+          <td>
+            <input type="number" id="end-skillspec-buff" onchange="calculateAndUpdate('skillspec-buff')" />
+          </td>
+          <td><input type="text" id="lum-skillspec-buff" readonly /></td>
+          <td><input type="text" id="coins-skillspec-buff" readonly /></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Enl</th>
+          <th>Level</th>
+          <th>Tokens</th>
+          <th>Coins</th>
+          <th>Lum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="number" id="enl-input" onchange="calculateValues()"></td>
+          <td><input type="text" id="level-output" readonly></td>
+          <td><input type="text" id="tokens-output" readonly></td>
+          <td><input type="text" id="coins-output" readonly></td>
+          <td><input type="text" id="lum-output" readonly></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
-    <view width="148" height="40" title="Main">
-        <control type="layout">
-            <control type="button" name="Attributes" left="4" top="4" width="32" height="32" text="Attr" setstate="viewAttr" actionexpr="$viewAttr=1-$viewAttr" />
-            <control type="button" name="Bank" left="40" top="4" width="32" height="32" text="Bank" setstate="viewBank" actionexpr="$viewBank=1-$viewBank" />
-            <control type="button" name="WIP" left="76" top="4" width="32" height="32" text="WIP" />
-            <control type="button" name="WIP" left="112" top="4" width="32" height="32" text="WIP" />
-        </control>
-    </view>
+<view width="252" height="24" title="Main">
+  <control type="layout">
+    <control type="button" name="Attributes" left="4" top="4" width="64" height="16" text="Attributes" actionexpr="$viewAttr=1-$viewAttr" setstate="viewAttr" />
+    <control type="button" name="Bank" left="72" top="4" width="32" height="16" text="Bank" actionexpr="$viewBank=1-$viewBank" setstate="viewBank" />
+    <control type="button" name="AF" left="108" top="4" width="64" height="16" text="Auto Fellow" />
+    <control type="button" name="AFtoggle" left="172" top="4" width="32" height="16" text="[OFF]" actionexpr="$viewAF=1-$viewAF" />
+    <control type="button" name="Settings" left="208" top="4" width="40" height="16" text="Settings" />
+  </control>
+</view>
