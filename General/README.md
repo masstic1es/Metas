@@ -172,3 +172,54 @@ STATE: {Garbage}
             ItemCountLE 0 {Thrungus}
         DO: SetState {CramPack}
 ```
+
+```js
+/ub globalframelimit 39 //active framerate
+/ub bgframelimit 13  //inactive framerate
+
+/ub resolution 1280 512
+/vwt load 4window
+/ub resolution 1280 1024
+/vwt load 2window
+
+/ub textures <landscape[0-4]> <landscapeDetail[0-1]> <environment[0-4]> <environmentDetail[0-1]>
+/ub textures 4 0 4 0 1 1 //min
+/ub textures 4 0 2 0 10 10 //quality
+
+/ub resolution 1920 1024
+/ub resolution 1920 512
+/ub resolution 960 512
+
+IF: All
+    Expr {$stone=wobjectfindininventorybyname[Aetheria Mana Stone]}
+    Expr {$unids=listfilter[wobjectfindininventorybyname[Coalesced Aetheria],`wobjectgetintprop[$1,218103849]==27702`]}
+    Expr {listcount[$unids]}
+    Expr {listmap[$unids,`actiontryapplyitem[$stone,$1]`]}
+    Never
+DO: None
+^You use the desiccant on the aetheria to create an aetheria powder
+42636 - red
+42635 - blue
+
+IF: All
+    Expr {getvar[powderBlue]==True}
+    Expr {getcombatstate[]==Peace}
+    Any
+      All
+        ItemCountGE 1 {Blue Aetheria Chunk}
+        ItemCountGE 1 {Aetheria Desiccant}
+      All
+        Expr {listcount[listfilter[wobjectfindallinventorybynamerx[`Coalesced Aetheria`],`wobjectgetintprop[$1,218103849]==27704`]]==0}
+        Expr {getinventorycountbytemplatetype[42635]!=0}
+        Expr {getvar[combineWOHammer]==True}
+        ItemCountGE 1 {Coalesced Aetheria}
+        ItemCountGE 1 {Aetheria Desiccant}
+        ItemCountGE 0 {Lugian Aetheria Hammer}
+    Any
+      SecsInStateGE 2
+      ChatMatch {^The two artifacts link together effortlessly}
+  DO: DoAll
+      DoExpr {actiontryapplyitem[wobjectfindininventorybyname[Aetheria Desiccant],wobjectfindininventorybyname[Blue Aetheria Chunk]]}
+      SetState {BluePowder}
+
+```
